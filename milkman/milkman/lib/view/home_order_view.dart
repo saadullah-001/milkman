@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:milkman/utils/utils.dart';
+import 'package:milkman/view_model/home_order_provider.dart';
 import 'package:milkman/widgets/home_order_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeOrderView extends StatefulWidget {
   const HomeOrderView({super.key});
@@ -12,28 +14,6 @@ class HomeOrderView extends StatefulWidget {
 class _HomeOrderViewState extends State<HomeOrderView> {
   final _searchController = TextEditingController();
 
-  final List<String> products = const [
-    'Yogurt',
-    'Paneer',
-    'Cheese',
-    'Cow Milk',
-    'Buffalo Milk',
-    'Goat Milk',
-    'Camel Milk',
-  ];
-
-  final List<String> images = const [
-    'https://images.pexels.com/photos/5945660/pexels-photo-5945660.jpeg',
-    'https://images.pexels.com/photos/17200452/pexels-photo-17200452.jpeg',
-    'https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg',
-    'https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg',
-    'https://images.pexels.com/photos/26167584/pexels-photo-26167584.jpeg',
-    'https://images.pexels.com/photos/28430652/pexels-photo-28430652.jpeg',
-    'https://images.pexels.com/photos/7057286/pexels-photo-7057286.jpeg',
-  ];
-
-  List<int> quantities = [0, 0, 0, 0, 0, 0, 0];
-
   @override
   void dispose() {
     _searchController.dispose();
@@ -42,8 +22,10 @@ class _HomeOrderViewState extends State<HomeOrderView> {
 
   @override
   Widget build(BuildContext context) {
+    print("Hello");
     final size = MediaQuery.of(context).size;
     final scheme = Theme.of(context).colorScheme;
+    final provider = Provider.of<HomeOrderProvider>(context, listen: false);
 
     return Scaffold(
       appBar: HomeOrderWidget.myAppBar(context, size),
@@ -97,25 +79,26 @@ class _HomeOrderViewState extends State<HomeOrderView> {
                         mainAxisSpacing: 10,
                         childAspectRatio: 0.75,
                       ),
-                      itemCount: products.length,
+                      itemCount: provider.getProducts.length,
                       itemBuilder: (context, index) {
-                        return ProductCard(
-                          image: images[index],
-                          name: products[index],
-                          quantity: quantities[index].toString(),
-                          onAdd: () {
-                            setState(() {
-                              quantities[index]++;
-                              print(quantities[index]);
-                            });
-                          },
-                          onRemove: () {
-                            setState(() {
-                              if (quantities[index] > 0) {
-                                quantities[index]--;
-                                print(quantities[index]);
-                              }
-                            });
+                        return Consumer<HomeOrderProvider>(
+                          builder: (context, value, child) {
+                            final quantity = value.getQuantities[index];
+                            final image = value.getImages[index];
+                            final name = value.getProducts[index];
+                            return ProductCard(
+                              image: image,
+                              name: name,
+                              quantity: quantity.toString(),
+                              onAdd: () {
+                                value.addQuantity(index);
+                              },
+                              onRemove: () {
+                                if (quantity > 0) {
+                                  value.removeQuantity(index);
+                                }
+                              },
+                            );
                           },
                         );
                       },

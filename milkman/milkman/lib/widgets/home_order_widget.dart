@@ -87,7 +87,11 @@ class HomeOrderWidget {
     );
   }
 
-  static Container productCard(BuildContext context) {
+  static Container productCard({
+    required BuildContext context,
+    required String name,
+    required String image,
+  }) {
     final scheme = Theme.of(context).colorScheme;
     final size = MediaQuery.of(context).size;
     return Container(
@@ -113,7 +117,7 @@ class HomeOrderWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
-                'https://picsum.photos/200/300',
+                image,
                 width: double.infinity,
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) => Container(
@@ -128,7 +132,7 @@ class HomeOrderWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Name',
+                name,
                 style: ResponsiveText.body(
                   context,
                 ).copyWith(fontWeight: FontWeight.w800),

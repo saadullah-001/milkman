@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class ResponsiveText {
+  // Breakpoints
+  static const double smallPhoneMaxWidth = 360;
+  static const double mediumPhoneMaxWidth = 414;
+  static const double largePhoneMaxWidth = 600;
+  static const double tabletMaxWidth = 1024;
+
+  static double _getScale(
+    BuildContext context,
+    double small,
+    double medium,
+    double large,
+    double tablet,
+    double desktop,
+  ) {
+    final width = MediaQuery.of(context).size.width;
+
+    if (width <= smallPhoneMaxWidth) return small;
+    if (width <= mediumPhoneMaxWidth) return medium;
+    if (width <= largePhoneMaxWidth) return large;
+    if (width <= tabletMaxWidth) return tablet;
+    return desktop;
+  }
+
+  static TextStyle title(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return TextStyle(
+      fontSize: _getScale(context, 22, 26, 32, 36, 40),
+      fontWeight: FontWeight.w600,
+      color: scheme.onSurface, // adapts light/dark
+      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+    );
+  }
+
+  static TextStyle heading(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return TextStyle(
+      fontSize: _getScale(context, 24, 30, 40, 52, 60),
+      fontWeight: FontWeight.bold,
+      color: scheme.onSurface,
+      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+    );
+  }
+
+  static TextStyle subtitle(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return TextStyle(
+      fontSize: _getScale(context, 14, 16, 18, 20, 22),
+      color: scheme.onSurfaceVariant,
+      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+    );
+  }
+
+  static TextStyle body(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return TextStyle(
+      fontSize: _getScale(context, 12, 14, 16, 18, 20),
+      color: scheme.onSurface,
+      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+    );
+  }
+
+  static TextStyle caption(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return TextStyle(
+      fontSize: _getScale(context, 10, 12, 12, 14, 16),
+      color: scheme.outline, // or onSurfaceVariant with opacity
+      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+    );
+  }
+}

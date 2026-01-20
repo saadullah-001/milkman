@@ -86,16 +86,32 @@ class HomeOrderWidget {
       ),
     );
   }
+}
 
-  static Container productCard({
-    required BuildContext context,
-    required String name,
-    required String image,
-  }) {
+class ProductCard extends StatelessWidget {
+  const ProductCard({
+    super.key,
+    required this.name,
+    required this.image,
+    required this.quantity,
+    required this.onAdd,
+    required this.onRemove,
+  });
+
+  final String name;
+  final String image;
+  final String quantity;
+
+  final VoidCallback onAdd;
+  final VoidCallback onRemove;
+
+  @override
+  Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final size = MediaQuery.of(context).size;
+
     return Container(
-      padding: EdgeInsets.all(11),
+      padding: const EdgeInsets.all(11),
       decoration: BoxDecoration(
         color: scheme.surface,
         borderRadius: BorderRadius.circular(14),
@@ -109,7 +125,6 @@ class HomeOrderWidget {
         ],
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AspectRatio(
@@ -127,7 +142,9 @@ class HomeOrderWidget {
               ),
             ),
           ),
+
           SizedBox(height: size.height * 0.01),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -145,11 +162,13 @@ class HomeOrderWidget {
               ),
             ],
           ),
+
           SizedBox(height: size.height * 0.01),
+
           Row(
             children: [
               InkWell(
-                onTap: () {},
+                onTap: onRemove,
                 child: _quantityBtn(
                   size: size,
                   scheme: scheme,
@@ -158,21 +177,21 @@ class HomeOrderWidget {
               ),
               SizedBox(width: size.width * 0.025),
               Text(
-                '1',
+                quantity,
                 style: ResponsiveText.body(
                   context,
                 ).copyWith(fontWeight: FontWeight.w700),
               ),
               SizedBox(width: size.width * 0.025),
               InkWell(
-                onTap: () {},
+                onTap: onAdd,
                 child: _quantityBtn(
                   size: size,
                   scheme: scheme,
                   icon: Icons.add,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               InkWell(onTap: () {}, child: _addBtn(scheme, size, context)),
             ],
           ),

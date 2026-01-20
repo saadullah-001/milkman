@@ -32,6 +32,8 @@ class _HomeOrderViewState extends State<HomeOrderView> {
     'https://images.pexels.com/photos/7057286/pexels-photo-7057286.jpeg',
   ];
 
+  List<int> quantities = [0, 0, 0, 0, 0, 0, 0];
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -97,10 +99,24 @@ class _HomeOrderViewState extends State<HomeOrderView> {
                       ),
                       itemCount: products.length,
                       itemBuilder: (context, index) {
-                        return HomeOrderWidget.productCard(
-                          context: context,
+                        return ProductCard(
                           image: images[index],
                           name: products[index],
+                          quantity: quantities[index].toString(),
+                          onAdd: () {
+                            setState(() {
+                              quantities[index]++;
+                              print(quantities[index]);
+                            });
+                          },
+                          onRemove: () {
+                            setState(() {
+                              if (quantities[index] > 0) {
+                                quantities[index]--;
+                                print(quantities[index]);
+                              }
+                            });
+                          },
                         );
                       },
                     ),

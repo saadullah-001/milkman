@@ -166,7 +166,7 @@ class _PaymentBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bg = AppColors.buttonColor.withOpacity(isDark ? 0.20 : 0.10);
+    final bg = AppColors.secondary.withOpacity(isDark ? 0.20 : 0.10);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -177,12 +177,12 @@ class _PaymentBanner extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: AppColors.buttonColor.withOpacity(isDark ? 0.30 : 0.20),
+              color: AppColors.secondary.withOpacity(isDark ? 0.30 : 0.20),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(
               Icons.verified_user,
-              color: isDark ? Colors.white : AppColors.buttonColor,
+              color: isDark ? Colors.white : AppColors.secondary,
             ),
           ),
           const SizedBox(width: 12),
@@ -237,7 +237,7 @@ class _FilterChips extends StatelessWidget {
         children: [
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.buttonColor,
+              backgroundColor: AppColors.secondary,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 14),
               shape: const StadiumBorder(),

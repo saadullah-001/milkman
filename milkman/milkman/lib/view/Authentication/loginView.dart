@@ -118,7 +118,7 @@ class _LoginViewState extends State<LoginView> {
                       child: Text(
                         'Forgot Password?',
                         style: ResponsiveText.caption(context).copyWith(
-                          color: AppColors.buttonColor,
+                          color: AppColors.secondary,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -134,7 +134,7 @@ class _LoginViewState extends State<LoginView> {
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.buttonColor,
+                        backgroundColor: AppColors.secondary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
                         ),

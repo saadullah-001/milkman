@@ -17,10 +17,10 @@ class AppTheme {
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primary,
-        titleTextStyle: AppTextStyles.title.copyWith(color: Colors.white),
+        titleTextStyle: AppTextStyles.title,
       ),
       buttonTheme: ButtonThemeData(
-        buttonColor: AppColors.primary,
+        buttonColor: AppColors.primaryLight,
         textTheme: ButtonTextTheme.primary,
       ),
     );
@@ -31,17 +31,19 @@ class AppTheme {
       brightness: Brightness.dark,
       colorSchemeSeed: AppColors.primaryLight,
       //primaryColor: AppColors.primaryLight,
-      scaffoldBackgroundColor: Colors.black,
+      scaffoldBackgroundColor: AppColors.backgroundDark,
       textTheme: TextTheme(
-        displayLarge: AppTextStyles.title.copyWith(color: Colors.white),
-        bodyLarge: AppTextStyles.body.copyWith(color: Colors.white70),
+        displayLarge: AppTextStyles.title,
+        titleLarge: AppTextStyles.heading,
+        titleMedium: AppTextStyles.subtitle,
+        bodyLarge: AppTextStyles.body,
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primaryLight,
-        titleTextStyle: AppTextStyles.title.copyWith(color: Colors.white),
+        titleTextStyle: AppTextStyles.title,
       ),
       buttonTheme: ButtonThemeData(
-        buttonColor: AppColors.primaryLight,
+        buttonColor: AppColors.secondary,
         textTheme: ButtonTextTheme.primary,
       ),
     );

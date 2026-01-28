@@ -182,7 +182,7 @@ class PromoCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, color: gradient ? Colors.white : AppColors.buttonColor),
+          Icon(icon, color: gradient ? Colors.white : AppColors.secondary),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:milkman/utils/asset%20manager/strings.dart';
 import 'package:milkman/utils/theme/colors.dart';
 import 'package:milkman/utils/theme/responsive_text.dart';
 
-String time() {
-  int hour = DateTime.now().hour;
-  if (hour < 12) {
-    return 'Good Morning';
-  } else if (hour < 17) {
-    return 'Good Afternoon';
-  } else {
-    return 'Good Evening';
-  }
-}
-
 class HomeOrderWidget {
   static AppBar myAppBar(BuildContext context, Size size) {
-    final scheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return AppBar(
-      backgroundColor: scheme.surface,
+      backgroundColor: isDark ? Colors.black : Colors.white,
       elevation: 0,
       scrolledUnderElevation: 0,
       title: Row(
@@ -25,11 +15,11 @@ class HomeOrderWidget {
           SizedBox(width: size.width * 0.01),
           CircleAvatar(
             maxRadius: 18,
-            child: Icon(Icons.person, color: AppColors.buttonColor, size: 28),
+            child: Icon(Icons.person, color: AppColors.secondary, size: 28),
           ),
           SizedBox(width: size.width * 0.02),
           Text(
-            '${time().toString()}, User!',
+            Strings.greeting,
             style: ResponsiveText.body(
               context,
             ).copyWith(fontWeight: FontWeight.w800),
@@ -109,18 +99,21 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final size = MediaQuery.of(context).size;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardBg = isDark ? const Color(0xFF1B2530) : Colors.white;
+    final border = (isDark ? Colors.white : Colors.black).withAlpha(30);
 
     return Container(
       padding: const EdgeInsets.all(11),
       decoration: BoxDecoration(
-        color: scheme.surface,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: scheme.outlineVariant.withAlpha(60)),
+        color: cardBg,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: border),
         boxShadow: [
           BoxShadow(
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-            color: Colors.black.withAlpha(06),
+            color: Colors.black.withAlpha(isDark ? 36 : 12),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -136,7 +129,6 @@ class ProductCard extends StatelessWidget {
                 width: double.infinity,
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) => Container(
-                  color: scheme.surfaceContainerHighest,
                   child: const Center(child: Icon(Icons.image_not_supported)),
                 ),
               ),

@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:milkman/utils/asset%20manager/assets.dart';
 import 'package:milkman/utils/routes/route_names.dart';
 import 'package:milkman/utils/theme/colors.dart';
+import 'package:milkman/utils/theme/responsive_text.dart';
 import 'package:milkman/utils/theme/text_styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,7 +61,10 @@ class _SplashScreenState extends State<SplashScreen> {
             Text('Freshness Delivered Daily', style: AppTextStyles.subtitle),
             const SizedBox(height: 200),
             LoadingAnimationWidget.waveDots(color: Colors.white, size: 30),
-            Text('V1.0.0', style: AppTextStyles.body),
+            Text(
+              'V1.0.0',
+              style: ResponsiveText.body(context).copyWith(letterSpacing: 2.0),
+            ),
           ],
         ),
       ),

@@ -30,7 +30,16 @@ class ResponsiveText {
     return TextStyle(
       fontSize: _getScale(context, 22, 26, 32, 36, 40),
       fontWeight: FontWeight.w600,
+      //height: 1.0,
       color: scheme.onSurface, // adapts light/dark
+      shadows: [
+        BoxShadow(
+          // ignore: deprecated_member_use
+          color: Colors.black.withOpacity(0.1),
+          offset: const Offset(0, 2),
+          blurRadius: 4,
+        ),
+      ],
       fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
     );
   }
@@ -40,7 +49,16 @@ class ResponsiveText {
     return TextStyle(
       fontSize: _getScale(context, 24, 30, 40, 52, 60),
       fontWeight: FontWeight.bold,
+      //height: 1.0,
       color: scheme.onSurface,
+      shadows: [
+        BoxShadow(
+          // ignore: deprecated_member_use
+          color: Colors.black.withOpacity(0.1),
+          offset: const Offset(0, 2),
+          blurRadius: 4,
+        ),
+      ],
       fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
     );
   }
@@ -50,6 +68,7 @@ class ResponsiveText {
     return TextStyle(
       fontSize: _getScale(context, 14, 16, 18, 20, 22),
       color: scheme.onSurfaceVariant,
+      //letterSpacing: 1.2,
       fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
     );
   }
@@ -59,6 +78,7 @@ class ResponsiveText {
     return TextStyle(
       fontSize: _getScale(context, 12, 14, 16, 18, 20),
       color: scheme.onSurface,
+      //letterSpacing: 2.0,
       fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
     );
   }

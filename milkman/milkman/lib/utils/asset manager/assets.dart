@@ -10,4 +10,5 @@ class Asset {
   static const String animal = "$image/animal.png";
   static const String pet = "$image/pet.png";
   static const String login = "$image/login.png";
+  static const String noise = "$image/noise.png";
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:milkman/utils/routes/route_names.dart';
-import 'package:milkman/view/Authentication/SignupView.dart';
-import 'package:milkman/view/Authentication/forgotPasswordView.dart';
-import 'package:milkman/view/Authentication/loginView.dart';
-import 'package:milkman/view/Authentication/onboardingScreen.dart';
+import 'package:milkman/view/Authentication/Signup_view.dart';
+import 'package:milkman/view/Authentication/forgot_password_view.dart';
+import 'package:milkman/view/Authentication/login_view.dart';
+import 'package:milkman/view/Authentication/onboarding_screen.dart';
 import 'package:milkman/view/Authentication/splash_screen.dart';
 import 'package:milkman/view/home_page.dart';
 import 'package:milkman/view/home_order_view.dart';

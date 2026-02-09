@@ -1,20 +1,13 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:milkman/utils/routes/route_names.dart';
-import 'package:milkman/utils/theme/text_styles.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-Future<void> completeOnboarding(BuildContext context) async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setBool('isOnboarded', true);
-
-  Navigator.pushReplacementNamed(context, RouteNames.homePageView);
-}
+import 'package:milkman/services/onboarding_service.dart';
+import 'package:milkman/utils/theme/responsive_text.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
@@ -22,6 +15,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Size get size => MediaQuery.of(context).size;
   int _currentPage = 0;
+  late final Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      if (!mounted) return;
+      final nextPage = (_currentPage + 1) % 3;
+
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +85,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Spacer(),
                   InkWell(
                     onTap: () {
-                      completeOnboarding(context);
+                      OnboardingService().completeOnboarding(context);
                     },
-                    child: Text("Skip", style: AppTextStyles.subtitle),
+                    child: Text(
+                      "Skip",
+                      style: ResponsiveText.subtitle(
+                        context,
+                      ).copyWith(color: Colors.white),
+                    ),
                   ),
                   SizedBox(width: size.width * 0.05),
                 ],
@@ -159,7 +180,12 @@ class _OnboardingState extends State<Onboarding>
             position: _slideAnimation,
             child: FadeTransition(
               opacity: _fadeAnimation,
-              child: Text(widget.title, style: AppTextStyles.title),
+              child: Text(
+                widget.title,
+                style: ResponsiveText.title(
+                  context,
+                ).copyWith(color: Colors.white),
+              ),
             ),
           ),
           SizedBox(height: widget.size.height * 0.02),
@@ -173,7 +199,9 @@ class _OnboardingState extends State<Onboarding>
                 ),
                 child: Text(
                   widget.description,
-                  style: AppTextStyles.subtitle,
+                  style: ResponsiveText.subtitle(
+                    context,
+                  ).copyWith(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -226,6 +254,7 @@ Widget button(
   BuildContext context,
 ) {
   Size size = MediaQuery.of(context).size;
+
   return ElevatedButton(
     onPressed: () {
       if (currentPage < 2) {
@@ -235,7 +264,7 @@ Widget button(
         );
       } else {
         // Navigate to Home after last page
-        completeOnboarding(context);
+        OnboardingService().completeOnboarding(context);
       }
     },
     style: ElevatedButton.styleFrom(
@@ -247,11 +276,15 @@ Widget button(
     child: currentPage < 2
         ? Text(
             "Next",
-            style: AppTextStyles.subtitle.copyWith(fontWeight: FontWeight.bold),
+            style: ResponsiveText.subtitle(
+              context,
+            ).copyWith(fontWeight: FontWeight.bold, color: Colors.white),
           )
         : Text(
             "Get Started",
-            style: AppTextStyles.subtitle.copyWith(fontWeight: FontWeight.bold),
+            style: ResponsiveText.subtitle(
+              context,
+            ).copyWith(fontWeight: FontWeight.bold, color: Colors.white),
           ),
   );
 }

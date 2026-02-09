@@ -31,7 +31,7 @@ class MilkmanApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: theme,
           darkTheme: darkTheme,
-          initialRoute: RouteNames.homePageView,
+          initialRoute: RouteNames.onboardingScreen,
           onGenerateRoute: Routes.generateRoute,
         ),
       ),

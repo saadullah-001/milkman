@@ -27,68 +27,117 @@ class ResponsiveText {
 
   static TextStyle title(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return TextStyle(
-      fontSize: _getScale(context, 22, 26, 32, 36, 40),
-      fontWeight: FontWeight.w600,
-      //height: 1.0,
-      color: scheme.onSurface, // adapts light/dark
-      shadows: [
-        BoxShadow(
-          // ignore: deprecated_member_use
-          color: Colors.black.withOpacity(0.1),
-          offset: const Offset(0, 2),
-          blurRadius: 4,
-        ),
-      ],
-      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
-    );
+    final double fontSize = _getScale(context, 22, 26, 32, 36, 40);
+    try {
+      return TextStyle(
+        fontSize: fontSize,
+        fontWeight: FontWeight.w600,
+        //height: 1.0,
+        color: scheme.onSurface, // adapts light/dark
+        shadows: [
+          BoxShadow(
+            // ignore: deprecated_member_use
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 2),
+            blurRadius: 4,
+          ),
+        ],
+        fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+      );
+    } catch (__) {
+      return TextStyle(
+        fontSize: fontSize,
+        fontWeight: FontWeight.w600,
+        color: scheme.onSurface,
+        shadows: [
+          BoxShadow(
+            // ignore: deprecated_member_use
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 2),
+            blurRadius: 4,
+          ),
+        ],
+      );
+    }
   }
 
   static TextStyle heading(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return TextStyle(
-      fontSize: _getScale(context, 24, 30, 40, 52, 60),
-      fontWeight: FontWeight.bold,
-      //height: 1.0,
-      color: scheme.onSurface,
-      shadows: [
-        BoxShadow(
-          // ignore: deprecated_member_use
-          color: Colors.black.withOpacity(0.1),
-          offset: const Offset(0, 2),
-          blurRadius: 4,
-        ),
-      ],
-      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
-    );
+    final double fontSize = _getScale(context, 24, 30, 40, 52, 60);
+    try {
+      return TextStyle(
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold,
+        //height: 1.0,
+        color: scheme.onSurface,
+        shadows: [
+          BoxShadow(
+            // ignore: deprecated_member_use
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 2),
+            blurRadius: 4,
+          ),
+        ],
+        fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+      );
+    } catch (_) {
+      return TextStyle(
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold,
+        color: scheme.onSurface,
+        shadows: [
+          BoxShadow(
+            // ignore: deprecated_member_use
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 2),
+            blurRadius: 4,
+          ),
+        ],
+      );
+    }
   }
 
   static TextStyle subtitle(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return TextStyle(
-      fontSize: _getScale(context, 14, 16, 18, 20, 22),
-      color: scheme.onSurfaceVariant,
-      //letterSpacing: 1.2,
-      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
-    );
+    final double fontSize = _getScale(context, 14, 16, 18, 20, 22);
+    try {
+      return TextStyle(
+        fontSize: fontSize,
+        color: scheme.onSurfaceVariant,
+        //letterSpacing: 1.2,
+        fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+      );
+    } catch (_) {
+      return TextStyle(fontSize: fontSize, color: scheme.onSurface);
+    }
   }
 
   static TextStyle body(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return TextStyle(
-      fontSize: _getScale(context, 12, 14, 16, 18, 20),
-      color: scheme.onSurface,
-      //letterSpacing: 2.0,
-      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
-    );
+    final double fontSize = _getScale(context, 12, 14, 16, 18, 20);
+    try {
+      return TextStyle(
+        fontSize: fontSize,
+        color: scheme.onSurface,
+        //letterSpacing: 2.0,
+        fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+      );
+    } catch (_) {
+      return TextStyle(fontSize: fontSize, color: scheme.onSurface);
+    }
   }
 
   static TextStyle caption(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return TextStyle(
-      fontSize: _getScale(context, 10, 12, 12, 14, 16),
-      color: scheme.outline, // or onSurfaceVariant with opacity
-      fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
-    );
+    final double fontSize = _getScale(context, 10, 12, 12, 14, 16);
+    try {
+      return TextStyle(
+        fontSize: fontSize,
+        color: scheme.outline, // or onSurfaceVariant with opacity
+        fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+      );
+    } catch (_) {
+      return TextStyle(fontSize: fontSize, color: scheme.outline);
+    }
   }
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
+import 'package:milkman/services/splash_service.dart';
 import 'package:milkman/utils/asset%20manager/assets.dart';
-import 'package:milkman/utils/routes/route_names.dart';
+import 'package:milkman/utils/asset%20manager/strings.dart';
 import 'package:milkman/utils/theme/colors.dart';
 import 'package:milkman/utils/theme/responsive_text.dart';
-import 'package:milkman/utils/theme/text_styles.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,54 +18,79 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _checkFirstTime();
+    _navigate();
   }
 
-  Future<void> _checkFirstTime() async {
-    final prefs = await SharedPreferences.getInstance();
-    final isOnboarded = prefs.getBool('isOnboarded') ?? false;
+  Future<void> _navigate() async {
+    final routeName = await SplashService.checkFirstTime();
 
-    // Add a small delay to show splash animation
-    await Future.delayed(const Duration(seconds: 4));
+    if (!mounted) return;
 
-    if (isOnboarded) {
-      // User already onboarded → go to Home
-      Navigator.pushReplacementNamed(context, RouteNames.homePageView);
-    } else {
-      // User not onboarded → go to Onboarding
-      Navigator.pushReplacementNamed(context, RouteNames.onboardingScreen);
-    }
+    Navigator.pushReplacementNamed(context, routeName);
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.primary, AppColors.primaryLight],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Column(
-          children: [
-            const SizedBox(height: 300),
-            SizedBox(height: 200, child: Lottie.asset(Asset.cow)),
-            const SizedBox(height: 50),
-            Text('OrganicMandi', style: AppTextStyles.heading),
-            const SizedBox(height: 20),
-            Text('Freshness Delivered Daily', style: AppTextStyles.subtitle),
-            const SizedBox(height: 200),
-            LoadingAnimationWidget.waveDots(color: Colors.white, size: 30),
-            Text(
-              'V1.0.0',
-              style: ResponsiveText.body(context).copyWith(letterSpacing: 2.0),
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [AppColors.primary, AppColors.primaryLight],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: const [0.2, 0.8],
+              ),
             ),
-          ],
-        ),
+          ),
+          // Noise overlay
+          Opacity(
+            opacity: 0.03,
+            child: Image.asset(
+              "assets/images/noise.png",
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: size.height * 0.3),
+              SizedBox(
+                height: size.height * 0.2,
+                child: Lottie.asset(Asset.cow),
+              ),
+              SizedBox(height: size.height * 0.05),
+              Text(
+                Strings.appName,
+                style: ResponsiveText.heading(
+                  context,
+                ).copyWith(color: Colors.white),
+              ),
+              SizedBox(height: size.height * 0.01),
+              Text(
+                Strings.bio,
+                style: ResponsiveText.subtitle(
+                  context,
+                ).copyWith(color: Colors.white70),
+              ),
+              SizedBox(height: size.height * 0.21),
+              LoadingAnimationWidget.waveDots(color: Colors.white, size: 30),
+              Text(
+                Strings.appVersion,
+                style: ResponsiveText.body(
+                  context,
+                ).copyWith(letterSpacing: 2.0, color: Colors.white70),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -1,7 +1,9 @@
 class Strings {
   static const String appName = 'Milkman';
-  static const String user = 'User';
-  static String greeting = '${time()}, $user!';
+  static const String bio = 'Freshness Delivered Daily';
+  static const String appVersion = 'V1.0.0';
+  static const String username = 'User';
+  static String greeting = '${time()}, $username!';
 }
 
 String time() {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
-import 'text_styles.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -9,16 +8,8 @@ class AppTheme {
       colorSchemeSeed: AppColors.primary,
       //primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.backgroundLight,
-      textTheme: TextTheme(
-        displayLarge: AppTextStyles.title,
-        titleLarge: AppTextStyles.heading,
-        titleMedium: AppTextStyles.subtitle,
-        bodyLarge: AppTextStyles.body,
-      ),
-      appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.primary,
-        titleTextStyle: AppTextStyles.title,
-      ),
+      textTheme: TextTheme(),
+      appBarTheme: AppBarTheme(backgroundColor: AppColors.primary),
       buttonTheme: ButtonThemeData(
         buttonColor: AppColors.primaryLight,
         textTheme: ButtonTextTheme.primary,
@@ -32,16 +23,8 @@ class AppTheme {
       colorSchemeSeed: AppColors.primaryLight,
       //primaryColor: AppColors.primaryLight,
       scaffoldBackgroundColor: AppColors.backgroundDark,
-      textTheme: TextTheme(
-        displayLarge: AppTextStyles.title,
-        titleLarge: AppTextStyles.heading,
-        titleMedium: AppTextStyles.subtitle,
-        bodyLarge: AppTextStyles.body,
-      ),
-      appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.primaryLight,
-        titleTextStyle: AppTextStyles.title,
-      ),
+      textTheme: TextTheme(),
+      appBarTheme: AppBarTheme(backgroundColor: AppColors.primaryLight),
       buttonTheme: ButtonThemeData(
         buttonColor: AppColors.secondary,
         textTheme: ButtonTextTheme.primary,
